@@ -19,6 +19,17 @@ requests.packages.urllib3.disable_warnings()
 
 class ProxyManager:
     def __init__(self, proxies=None):
+        """Initializes the function with a proxy, if provided, and checks if the proxy is functional. If the proxy is not functional, an error is raised and the function proceeds without the proxy.
+        Parameters:
+            - proxies (dict): A dictionary containing the proxy information.
+        Returns:
+            - None: This function does not return any value.
+        Processing Logic:
+            - Initialize function with proxy if provided.
+            - Check if proxy is functional.
+            - If proxy is not functional, raise error.
+            - If proxy is functional, proceed with function."""
+        
         self.proxy = proxies
         if self.proxy and not self._is_proxy_working():
             msg = "Proxy seems to be non-functional. Proceeding without it."
@@ -45,5 +56,16 @@ class ProxyManager:
         return False
 
     def get_proxy(self):
+        """"Returns the proxy value of the object."
+        Parameters:
+            - self (object): The object to retrieve the proxy value from.
+        Returns:
+            - proxy (object): The proxy value of the object.
+        Processing Logic:
+            - Retrieve the proxy value.
+            - No additional processing is done.
+            - Proxy value is returned.
+            - No error handling is included."""
+        
         return self.proxy
 
