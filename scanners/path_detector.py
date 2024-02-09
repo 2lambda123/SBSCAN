@@ -53,7 +53,7 @@ class PathDetector:
 
     def _make_request(self, url):
         try:
-            with requests.get(url, headers=DEFAULT_HEADER, verify=False, proxies=self.proxy, timeout=TIMEOUT, stream=True, allow_redirects=False) as res:
+            with requests.get(url, headers=DEFAULT_HEADER, verify=True, proxies=self.proxy, timeout=TIMEOUT, stream=True, allow_redirects=False) as res:
                 logger.debug(Fore.CYAN + f"[{res.status_code}]" + Fore.BLUE + f"  [Content-Length: {res.headers.get('Content-Length', 0)}]", extra={"target": url})
                 if "text/event-stream" in res.headers.get("Content-Type", ""):
                     content = b""

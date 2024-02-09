@@ -37,7 +37,7 @@ def check(url, dns_domain, proxies=None):
     # 构建请求URL
     target_url = urljoin(url, "/functionRouter")
     try:
-        res = requests.post(target_url, headers=headers, data='test', verify=False, timeout=TIMEOUT, proxies=proxies)
+        res = requests.post(target_url, headers=headers, data='test', verify=True, timeout=TIMEOUT, proxies=proxies)
         logger.debug(Fore.CYAN + f"[{res.status_code}]" + Fore.BLUE + f"[{res.headers}]", extra={"target": target_url})
         # 检查响应内容来判断漏洞是否存在
         if res.status_code == 500 and '"error":"Internal Server Error"' in res.text:
