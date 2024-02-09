@@ -22,6 +22,17 @@ class PathDetector:
     MAX_RESPONSE_LENGTH = 102400  # 100KB
 
     def __init__(self, paths, proxy_manager):
+        """Initializes the class with the given paths and proxy manager.
+        Parameters:
+            - paths (list): List of paths to be used.
+            - proxy_manager (ProxyManager): Object that manages the proxy.
+        Returns:
+            - None: This function does not return anything.
+        Processing Logic:
+            - Initializes the class with given paths.
+            - Gets a proxy from the proxy manager.
+            - Assigns the proxy to the class variable."""
+        
         self.paths = paths
         self.proxy = proxy_manager.get_proxy()
 
@@ -52,6 +63,19 @@ class PathDetector:
         return detected_paths
 
     def _make_request(self, url):
+        """Makes a request to the provided URL and returns the response content or None if an error occurs.
+        Parameters:
+            - url (str): The URL to make the request to.
+        Returns:
+            - str: The response content if the request is successful, or None if an error occurs.
+        Processing Logic:
+            - Sends a GET request with specified headers, timeout, and proxies.
+            - Checks if the response content type is "text/event-stream".
+            - If so, reads the response content in chunks and decodes it.
+            - If not, checks if the response status code is 200.
+            - If so, returns the first MAX_RESPONSE_LENGTH characters of the response text.
+            - If an error occurs, logs the error and returns None."""
+        
         try:
             with requests.get(url, headers=DEFAULT_HEADER, verify=True, proxies=self.proxy, timeout=TIMEOUT, stream=True, allow_redirects=False) as res:
                 logger.debug(Fore.CYAN + f"[{res.status_code}]" + Fore.BLUE + f"  [Content-Length: {res.headers.get('Content-Length', 0)}]", extra={"target": url})

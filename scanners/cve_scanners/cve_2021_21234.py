@@ -19,6 +19,17 @@ CVE_ID = "CVE-2021-21234"
 
 
 def is_vulnerable(response_text, conditions):
+    """Function to check if a response text is vulnerable based on a set of conditions.
+    Parameters:
+        - response_text (str): The response text to be checked.
+        - conditions (list): A list of conditions to check against the response text.
+    Returns:
+        - bool: True if all conditions are present in the response text, False otherwise.
+    Processing Logic:
+        - Check if all conditions are present.
+        - Return True if all conditions are present.
+        - Return False if any condition is missing."""
+    
     return all(condition in response_text for condition in conditions)
 
 

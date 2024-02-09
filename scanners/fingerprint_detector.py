@@ -20,6 +20,15 @@ class FingerprintDetector:
     PATHS = ["/favicon.ico", "/"]
 
     def __init__(self, proxy_manager):
+        """This function initializes a proxy manager object and assigns it to the self.proxy attribute.
+        Parameters:
+            - proxy_manager (ProxyManager): A proxy manager object.
+        Returns:
+            - None: This function does not return any value.
+        Processing Logic:
+            - Initializes proxy manager object.
+            - Assigns proxy manager object to self.proxy attribute."""
+        
         self.proxy = proxy_manager.get_proxy()
 
     def is_spring_app(self, url):
