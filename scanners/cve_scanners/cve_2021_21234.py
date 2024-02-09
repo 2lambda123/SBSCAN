@@ -47,7 +47,7 @@ def check(url, dns_domain, proxies=None):
     for payload in PAYLOADS:
         target_url = urljoin(url, payload["path"])
         try:
-            res = requests.get(target_url, headers=DEFAULT_HEADER, timeout=TIMEOUT, verify=False, proxies=proxies)
+            res = requests.get(target_url, headers=DEFAULT_HEADER, timeout=TIMEOUT, verify=True, proxies=proxies)
             logger.debug(Fore.CYAN + f"[{res.status_code}]" + Fore.BLUE + f"[{res.headers}]", extra={"target": target_url})
             if res.status_code == 200 and is_vulnerable(res.text, payload["conditions"]):
                 logger.info(Fore.RED + f"[{CVE_ID} vulnerability detected!]", extra={"target": target_url})

