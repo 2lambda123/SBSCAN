@@ -59,7 +59,7 @@ class FingerprintDetector:
     def _make_request(self, url):
         """向指定的URL发起请求并返回响应。"""
         try:
-            response = requests.get(url, headers=DEFAULT_HEADER, proxies=self.proxy, timeout=TIMEOUT, verify=False)
+            response = requests.get(url, headers=DEFAULT_HEADER, proxies=self.proxy, timeout=TIMEOUT, verify=True)
             if response.content:
                 return response
         except requests.RequestException as e:

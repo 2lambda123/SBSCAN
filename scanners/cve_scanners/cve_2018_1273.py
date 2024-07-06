@@ -45,7 +45,7 @@ def check(url, dns_domain, proxies=None):
         'Accept-Language': "zh-CN,zh;q=0.9,en;q=0.8"
     }
     try:
-        res = requests.post(target_url, headers=headers, timeout=TIMEOUT, data=payload, verify=False, proxies=proxies)
+        res = requests.post(target_url, headers=headers, timeout=TIMEOUT, data=payload, verify=True, proxies=proxies)
         logger.debug(Fore.CYAN + f"[{res.status_code}]" + Fore.BLUE + f"[{res.headers}]", extra={"target": target_url})
         if res.status_code == 500:
             details = f"{CVE_ID} vulnerability detected"

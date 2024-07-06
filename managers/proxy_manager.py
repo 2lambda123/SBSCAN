@@ -30,7 +30,7 @@ class ProxyManager:
         检测代理有效性
         """
         try:
-            response = requests.get(TEST_URL, headers=DEFAULT_HEADER, verify=False, timeout=TIMEOUT)
+            response = requests.get(TEST_URL, headers=DEFAULT_HEADER, verify=True, timeout=TIMEOUT)
             if response.status_code == 200:
                 logger.info("Proxy detection available", extra={"target": self.proxy})
                 return True
